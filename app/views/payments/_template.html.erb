@@ -1,0 +1,206 @@
+<section>
+  <!-- begin Our News-->
+  <div class="row">
+    <div class="col-md-8">
+      <article class="donations donations-steps">
+        <h2>Donate to Greenpeace</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem eos quasi distinctio impedit, voluptatum explicabo! Sequi minima ad magni hic tempora nisi iure quidem provident voluptatum et maiores consequuntur esse sit beatae exercitationem consequatur!</p>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" id="donation-steps">
+          <li class="active"><a href="#amount" role="tab" data-toggle="tab"><span>1</span>Amount</a></li>
+          <li><a href="#profile" role="tab" data-toggle="tab"><span>2</span>Details</a></li>
+          <li><a href="#messages" role="tab" data-toggle="tab"><span>3</span>Payment</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <form action="#">
+          <div class="tab-content">
+            <div class="tab-pane active" id="step1">
+              <div class="recurring">
+                <div class="radio">
+                  <label>
+                  <input name="recurring" id="recurring1" value="monthly" type="radio">
+                  Monthly Donation
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                  <input name="recurring" id="recurring2" value="single" checked="" type="radio">
+                  Single Donation
+                  </label>
+                </div>
+              </div>
+              <div class="amount">
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amount10" value="10" type="radio">
+                  $ 10
+                  </label>
+                </div>
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amount20" value="20" type="radio">
+                  $ 20
+                  </label>
+                </div>
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amount30" value="30" type="radio">
+                  $ 30
+                  </label>
+                </div>
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amount50" value="50" type="radio">
+                  $ 50
+                  </label>
+                </div>
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amount100" value="100" type="radio">
+                  $ 100
+                  </label>
+                </div>
+                <div class="radio active price">
+                  <label>
+                  <input name="amount" id="amount200" value="200" checked="" type="radio">
+                  $ 200
+                  </label>
+                </div>
+                <div class="radio price">
+                  <label>
+                  <input name="amount" id="amountOther" value="other" type="radio">
+                  Other
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="amount-other" class="sr-only">Other Amount</label>
+                  <input class="form-control" value="500.00" id="amount-other" type="text">
+                </div>
+              </div>
+              <a href="#profile" class="btn btn-read-more next btn-tab-action">Next</a>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tab-pane" id="step2">
+            	Second Page
+              <h5>SMS verification</h5>
+              <div class="form-group">
+                <input class="form-control" id="smscode" placeholder="Paste sms code here" type="text">
+                <br>
+                <div id="smsBtn" class="btn">Resend SMS</div>
+              </div>
+              <div class="form-group">
+                <input class="form-control" id="vfpin" placeholder="PIN" type="password">
+              </div>
+              <a href="#amount" class="btn btn-read-more back btn-tab-action">Back</a>
+              <a href="#messages" class="btn btn-read-more next btn-tab-action">Next</a>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tab-pane" id="step3">
+              <h5>Payment Steps</h5>
+              <!-- <div class="creditcard">
+                <div class="radio">
+                  <label>
+                  <input name="creditcard" id="creditcard1" value="visa" type="radio">
+                  Visa
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                  <input name="creditcard" id="creditcard2" value="mastercard" checked="" type="radio">
+                  MasterCard
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                  <input name="creditcard" id="creditcard3" value="paypal" type="radio">
+                  PayPal
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cardnumber" class="sr-only">Card number</label>
+                <input class="form-control" id="cardnumber" placeholder="Card number" type="text">
+              </div>
+              <div class="form-group">
+                <label for="cvv" class="sr-only">CVV</label>
+                <input class="form-control" id="cvv" placeholder="CVV" type="text">
+              </div>
+              <div class="form-group">
+                <label for="cardholder-name" class="sr-only">Cardholder name</label>
+                <input class="form-control" id="cardholder-name" placeholder="Cardholder name" type="text">
+              </div> -->
+              <p>You are generously donating $250</p>
+              <a href="#profile" class="btn btn-read-more back btn-tab-action">Back</a>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </form>
+      </article>
+    </div>
+  </div>
+  <!-- end Our News-->
+</section>
+<script>
+	$(document).ready(function(){
+		var amount = 200;
+		smsVerify()
+		$("#smsBtn").on("click", function(){
+			smsVerify();
+		})
+		function smsVerify(){
+			$.ajax({
+			    url: "http://testpay.vodafonecash.com.gh",
+			    xhrFields: { withCredentials: true },
+			    type: 'POST',
+			    data: {
+			      "username": "711501",
+			      "password": "hackathon2",
+			      "token": "abc1234",
+			      "amount": 10
+			    }
+			}).done(function(){ 
+				console.log("done");
+			});
+		}
+
+		$("#step1 .next").on("click", function(){
+			$("#step1").hide();
+			$("#step2").show();
+			$.ajax({
+			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
+			    xhrFields: { withCredentials: true },
+			    type: 'POST',
+			    data: {
+			      "vendor": "YOUM",
+			      "phone": "233204424321",
+			      "amount": amount
+			    }
+			})
+		})
+		$("#step2 .next").on("click", function(){
+			$("#step2").hide();
+			$("#step3").show();
+			var code = $("#smscode").val();
+			var pin = $("#vfpin").val();
+			$.ajax({
+			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
+			    xhrFields: { withCredentials: true },
+			    type: 'POST',
+			    data: {
+			      "smscode": code,
+			      "vfPIN": pin,
+			      "merchantCode": "711501"
+			    }
+			})
+		})
+		$("#step3 .next").on("click", function(){
+			//$("#step2").hide();
+			//$("#step3").show();
+		})
+		$(".price").on("click", function(){
+			amount = +($(this).find("input").val())
+			console.log(amount);
+		})
+	});
+	
+</script>
