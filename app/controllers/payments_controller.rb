@@ -15,6 +15,7 @@ class PaymentsController < ApplicationController
   # GET /payments/new
   def new
     @payment = Payment.new
+    @campaign = Campaign.find(params[:campaign_id])
   end
 
   # GET /payments/1/edit

@@ -3,13 +3,13 @@
   <div class="row">
     <div class="col-md-8">
       <article class="donations donations-steps">
-        <h2>Donate to Greenpeace</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem eos quasi distinctio impedit, voluptatum explicabo! Sequi minima ad magni hic tempora nisi iure quidem provident voluptatum et maiores consequuntur esse sit beatae exercitationem consequatur!</p>
+        <h2>Donate to <%= @campaign.name %></h2>
+        <p>Thabk you for your concern. When you make a donation, you invest in the life of someone. You become their Angel</p>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="donation-steps">
-          <li class="active"><a href="#amount" role="tab" data-toggle="tab"><span>1</span>Amount</a></li>
-          <li><a href="#profile" role="tab" data-toggle="tab"><span>2</span>Details</a></li>
-          <li><a href="#messages" role="tab" data-toggle="tab"><span>3</span>Payment</a></li>
+          <li id="vfnav1" class="vfnav active"><a href="#amount" role="tab" data-toggle="tab"><span>1</span>Amount</a></li>
+          <li id="vfnav2" class="vfnav"><a href="#profile" role="tab" data-toggle="tab"><span>2</span>Details</a></li>
+          <li id="vfnav3" class="vfnav"><a href="#messages" role="tab" data-toggle="tab"><span>3</span>Payment</a></li>
         </ul>
         <!-- Tab panes -->
         <form action="#">
@@ -166,6 +166,8 @@
 		$("#step1 .next").on("click", function(){
 			$("#step1").hide();
 			$("#step2").show();
+			clearActive();
+			$("#vfnav2").addClass("active");
 			$.ajax({
 			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
 			    xhrFields: { withCredentials: true },
@@ -180,6 +182,8 @@
 		$("#step2 .next").on("click", function(){
 			$("#step2").hide();
 			$("#step3").show();
+			clearActive();
+			$("#vfnav3").addClass("active");
 			var code = $("#smscode").val();
 			var pin = $("#vfpin").val();
 			$.ajax({
@@ -201,6 +205,10 @@
 			amount = +($(this).find("input").val())
 			console.log(amount);
 		})
+
+		function clearActive(){
+			$(".vfnav").removeClass("active");
+		}
 	});
 	
 </script>
