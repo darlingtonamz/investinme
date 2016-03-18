@@ -4,6 +4,5 @@ class CampaignsCatergories < ActiveRecord::Migration
 	    t.references :campaign, null: false
 	    t.references :category, null: false
 	  end
-
   end
 end
