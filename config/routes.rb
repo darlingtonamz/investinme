@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :users do
     resources :campaigns do
       resources :payments
-    end
+    end 
   end
 end
