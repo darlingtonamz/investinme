@@ -1,11 +1,12 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:new, :create]
+  before_action :set_user, only: [:new, :create, :show]
 
   # GET /campaigns
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
+    @user = User.find(1)
   end
 
   # GET /campaigns/1
