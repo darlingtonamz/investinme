@@ -56,8 +56,8 @@
 			</div> -->
 			<div class="tab-pane active" id="profile">
 				<div class="row">
-					<div class="col-md-6"><figure><img src="<%= image_path("main.jpg") %>" alt="//"></figure></div>
-					<div class="col-md-6"><figure><img src="<%= image_path("main.jpg") %>" alt="//"></figure></div>
+					<div class="col-md-6"><figure><img src="<%= @campaign.display_url %>" alt="//"></figure></div>
+					<div class="col-md-6"><figure><img src="<%= @campaign.display_url %>" alt="//"></figure></div>
 				</div>
 			</div>
 			<!-- <div class="tab-pane" id="messages">
@@ -128,6 +128,7 @@
 			<h4>Help Us reach our goal: GHs <%= @campaign.cost %></h4>
 			<p><%= @campaign.goal %></p>
 			<a href="<%= new_user_campaign_payment_path(@campaign.user, @campaign) %>" class="btn btn-make-donation">I want to make a donation</a>
+			<a href="<%= @campaign.upload_url %>" class="btn btn-success">Executive Summary</a>
 			<div class="foot">
 				<span class="goal">Goal: GHs 4,548</span>
 				<span class="grossed">Grossed</span>
@@ -162,11 +163,11 @@
 </p> -->
 
 <%#= link_to 'Invest', campaign_payments_path %>
-<%= link_to 'Edit', edit_user_campaign_path(@campaign.user, @campaign) %> |
-<%= link_to 'Back', user_campaigns_path(@campaign.user) %>
+<%#= link_to 'Edit', edit_user_campaign_path(@campaign.user, @campaign) %> |
+<%#= link_to 'Back', user_campaigns_path(@campaign.user) %>
 
-<%= link_to new_user_campaign_payment_path(@campaign.user, @campaign) do %>
+<!-- <%#= link_to new_user_campaign_payment_path(@campaign.user, @campaign) do %>
 	<div class="btn">
 		Invest
 	</div>
-<% end %>
+<%# end %> -->
