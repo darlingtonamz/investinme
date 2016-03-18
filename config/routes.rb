@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   resources :users do
     member do
       resources :campaigns do
-    end
-      resources :payments
+        resources :payments
+      end
     end
   end
 end

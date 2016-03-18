@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Goal</th>
       <th>Cost</th>
+      <th>Execute Summary</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= campaign.name %></td>
         <td><%= campaign.goal %></td>
         <td><%= campaign.cost %></td>
+        <td><%= link_to 'View', campaign.upload_url %></td>
         <td><%= link_to 'Show', campaign %></td>
         <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
         <td><%= link_to 'Destroy', campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
