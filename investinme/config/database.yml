@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASSWORD'] %>
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: invest_development
+  
+test:
+  <<: *default
+  database: invest_test
+
+production:
+  <<: *default
+  database: invest_production
