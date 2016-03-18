@@ -3,21 +3,21 @@
 <div class="row">
 	<div class="col-md-8">
 		<article class="donations">
-			<h2>Why we need your help</h2>
+			<h2><%= @campaign.name %></h2>
 
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs tabs-horizontal" role="tablist">
-				<li><a href="#details" role="tab" data-toggle="tab">Details</a></li>
+				<!-- <li><a href="#details" role="tab" data-toggle="tab">Details</a></li> -->
 				<li class="active"><a href="#profile" role="tab" data-toggle="tab">Images</a></li>
-				<li><a href="#messages" role="tab" data-toggle="tab">News</a></li>
-				<li><a href="#settings" role="tab" data-toggle="tab">Followers</a></li>
+				<!-- <li><a href="#messages" role="tab" data-toggle="tab">News</a></li> -->
+				<!-- <li><a href="#settings" role="tab" data-toggle="tab">Followers</a></li> -->
 				<li><a href="#comments" role="tab" data-toggle="tab">Comments</a></li>
 			</ul>
 
 			<!-- Tab panes -->
 			<div class="tab-content">
-			<div class="tab-pane" id="details">
-				<figure><img src="<%= image_path("main.jpg") %>" alt="//"></figure>
+			<!-- <div class="tab-pane" id="details">
+				<figure><img src="<%#= image_path("main.jpg") %>" alt="//"></figure>
 				<div class="row">
 				<div class="col-md-6">
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem eos quasi distinctio impedit, voluptatum explicabo! Sequi minima ad magni hic tempora nisi iure quidem provident voluptatum et maiores consequuntur esse sit beatae exercitationem consequatur pariatur deleniti harum omnis a, nobis aspernatur non fugiat voluptatibus! Perferendis facilis quae neque consequatur, ratione deleniti alias cupiditate .</p>
@@ -53,18 +53,18 @@
 					</div>
 				</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="tab-pane active" id="profile">
 				<div class="row">
 					<div class="col-md-6"><figure><img src="<%= image_path("main.jpg") %>" alt="//"></figure></div>
 					<div class="col-md-6"><figure><img src="<%= image_path("main.jpg") %>" alt="//"></figure></div>
 				</div>
 			</div>
-			<div class="tab-pane" id="messages">
+			<!-- <div class="tab-pane" id="messages">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et harum veniam adipisci minima velit fugit laborum similique necessitatibus repellat aliquam quasi repudiandae alias facere, qui animi vero nobis esse quo.</p>
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore a amet ducimus enim repudiandae qui, et minus voluptatum tenetur porro minima! Earum non adipisci beatae ullam natus aliquid illo, fuga voluptate ratione. Alias cupiditate nam maxime non aliquam! In doloribus minus amet assumenda, sit ex eos? Mollitia illo iusto laborum.</p>
-			</div>
-			<div class="tab-pane" id="settings">
+			</div> -->
+			<!-- <div class="tab-pane" id="settings">
 				<ul>
 					<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, iure.</li>
 					<li>Numquam voluptates suscipit delectus qui sit eaque eos cum ullam!</li>
@@ -77,7 +77,7 @@
 					<li>Voluptatum rem voluptatibus cupiditate perspiciatis? Autem nostrum iusto animi iste.</li>
 					<li>Odit voluptatem corporis totam accusamus tempora blanditiis quia dolores, quasi.</li>
 				</ul>
-			</div>
+			</div> -->
 			<div class="tab-pane comments" id="comments">
 				<div class="comment">
 					<div class="links">1 day ago | <a href="#">Report</a> | <a href="#">Reply</a></div>
@@ -125,11 +125,11 @@
 
 	<div class="col-md-4">
 		<div class="donation-item resume">
-			<h4>Help Us reach our goal: $ 4,548</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta aspernatur quae reiciendis officiis rem nostrum, ipsa totam minus. Ab iure blanditiis quaerat, cupiditate suscipit incidunt maiores ducimus odio dolor reprehenderit sequi molestiae, eos quis unde aut quas, eveniet animi odit atque. Fuga.</p>
-			<a href="donations_steps.html" class="btn btn-make-donation">I want to make a donation</a>
+			<h4>Help Us reach our goal: GHs <%= @campaign.cost %></h4>
+			<p><%= @campaign.goal %></p>
+			<a href="<%= new_user_campaign_payment_path(@campaign.user, @campaign) %>" class="btn btn-make-donation">I want to make a donation</a>
 			<div class="foot">
-				<span class="goal">Goal: $4,548</span>
+				<span class="goal">Goal: GHs 4,548</span>
 				<span class="grossed">Grossed</span>
 				<div class="progress">
 					<div class="progress-bar" title="$2.200" role="progressbar" style="width: 90%;"><span class="sr-only">90% Complete</span></div>
@@ -146,20 +146,20 @@
 	</div>
 	</section>
 
-<p>
+<!-- <p>
   <strong>Name:</strong>
-  <%= @campaign.name %>
-</p>
+  <%#= @campaign.name %>
+</p> -->
 
-<p>
+<!-- <p>
   <strong>Goal:</strong>
-  <%= @campaign.goal %>
-</p>
+  <%#= @campaign.goal %>
+</p> -->
 
-<p>
+<!-- <p>
   <strong>Cost:</strong>
-  <%= @campaign.cost %>
-</p>
+  <%#= @campaign.cost %>
+</p> -->
 
 <%#= link_to 'Invest', campaign_payments_path %>
 <%= link_to 'Edit', edit_user_campaign_path(@campaign.user, @campaign) %> |
