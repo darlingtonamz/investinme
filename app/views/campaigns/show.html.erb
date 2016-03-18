@@ -16,5 +16,11 @@
 </p>
 
 <%#= link_to 'Invest', campaign_payments_path %>
-<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
-<%= link_to 'Back', campaigns_path %>
+<%= link_to 'Edit', edit_user_campaign_path(@campaign.user, @campaign) %> |
+<%= link_to 'Back', user_campaigns_path(@campaign.user) %>
+
+<%= link_to new_user_campaign_payment_path(@campaign.user, @campaign) do %>
+	<div class="btn">
+		Invest
+	</div>
+<% end %>

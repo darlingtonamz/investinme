@@ -1,0 +1,25 @@
+<h1>SMS Verification</h1>
+<script type="text/javascript">
+	$.ajax({
+    url: "http://testpay.vodafonecash.com.gh",
+    xhrFields: { withCredentials: true },
+    type: 'POST',
+    data: {
+      "username": "711501",
+      "password": "hackathon2",
+      "token": "abc1234",
+      "amount": 10
+    }
+  }).done(function(){ 
+  	console.log("done");
+  });
+</script>
+
+<%= form_tag('http://testpay.vodafonecash.com.gh/SendSMS.php', remote: true) do  %>
+	<%= hidden_field_tag(:vendor, "YOUM") %>
+	<%= hidden_field_tag(:phone, "233204424321") %>
+	<div class="field">	
+		<%= number_field(:amount, "20") %>
+	</div>
+  	<%= submit_tag("Verify") %>
+<% end %>
