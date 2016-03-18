@@ -27,6 +27,11 @@
     <%= f.label "Executive Summary (pdf)" %><br>
     <%= f.file_field :upload %>
   </div>
+
+  <div class="field">
+    <%= f.select :category_ids, @categories.collect {|c| [ c.name, c.id ] }, {prompt: 'categories'}, {multiple: true} %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

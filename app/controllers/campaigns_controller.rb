@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, only: [:new, :create]
 
   # GET /campaigns
   # GET /campaigns.json
@@ -16,6 +16,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/new
   def new
     @campaign = @user.campaigns.build
+    @categories = Category.all
   end
 
   # GET /campaigns/1/edit
@@ -64,7 +65,6 @@ class CampaignsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_campaign
       @campaign = Campaign.find(params[:id])
     end
@@ -75,6 +75,6 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:user_id, :name, :goal, :cost, :upload)
+      params.require(:campaign).permit(:user_id, :name, :goal, :cost, :upload, category_ids: [])
     end
 end
