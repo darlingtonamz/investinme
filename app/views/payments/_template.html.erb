@@ -74,8 +74,11 @@
                 </div>
                 <div class="form-group">
                   <label for="amount-other" class="sr-only">Other Amount</label>
-                  <input class="form-control" value="500.00" id="amount-other" type="text">
+                  <input class="form-control" value="500.00" id="amount-other" type="number" min="1" max="20000">
                 </div>
+              </div>
+              <div class="field">
+              	<input id="inpphone" class="form-control" type="text" placeholder="233123456789">
               </div>
               <a href="#profile" class="btn btn-read-more next btn-tab-action">Next</a>
               <div class="clearfix"></div>
@@ -96,39 +99,11 @@
               <div class="clearfix"></div>
             </div>
             <div class="tab-pane" id="step3">
-              <h5>Payment Steps</h5>
-              <!-- <div class="creditcard">
-                <div class="radio">
-                  <label>
-                  <input name="creditcard" id="creditcard1" value="visa" type="radio">
-                  Visa
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                  <input name="creditcard" id="creditcard2" value="mastercard" checked="" type="radio">
-                  MasterCard
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                  <input name="creditcard" id="creditcard3" value="paypal" type="radio">
-                  PayPal
-                  </label>
-                </div>
-              </div>
+              <h5>Confirmation</h5>
+              
               <div class="form-group">
-                <label for="cardnumber" class="sr-only">Card number</label>
-                <input class="form-control" id="cardnumber" placeholder="Card number" type="text">
+                <span id="confirmtext">Please wait...</span>
               </div>
-              <div class="form-group">
-                <label for="cvv" class="sr-only">CVV</label>
-                <input class="form-control" id="cvv" placeholder="CVV" type="text">
-              </div>
-              <div class="form-group">
-                <label for="cardholder-name" class="sr-only">Cardholder name</label>
-                <input class="form-control" id="cardholder-name" placeholder="Cardholder name" type="text">
-              </div> -->
               <p>You are generously donating $250</p>
               <a href="#profile" class="btn btn-read-more back btn-tab-action">Back</a>
               <div class="clearfix"></div>
@@ -143,42 +118,57 @@
 <script>
 	$(document).ready(function(){
 		var amount = 200;
-		smsVerify()
-		$("#smsBtn").on("click", function(){
-			smsVerify();
-		})
-		function smsVerify(){
-			$.ajax({
+		var pnum = "233204424321";
+		
+		$.ajax({
 			    url: "http://testpay.vodafonecash.com.gh",
 			    xhrFields: { withCredentials: true },
-			    type: 'POST',
+			    type: "POST",
 			    data: {
 			      "username": "711501",
 			      "password": "hackathon2",
 			      "token": "abc1234",
 			      "amount": 10
-			    }
-			}).done(function(){ 
-				console.log("done");
+			    },
+	            success: function (response) {
+	                //var resp = JSON.parse(response)
+	                alert(response);
+	            },
+	            error: function (xhr, status) {
+	                alert("error"+status);
+	            }
 			});
-		}
+
+		
+
+		$("#inpphone").on("keyup", function(){
+			pnum = $(this).val();
+			console.log(pnum);
+		});
+
+		$("#inpphone").on("keypress", function(e){
+			//pnum = $(this).val();
+			if (+e.key) 
+				console.log("true");
+			else{
+				console.log("false");
+				e.preventDefault();
+			}
+		});
+
 
 		$("#step1 .next").on("click", function(){
 			$("#step1").hide();
 			$("#step2").show();
 			clearActive();
 			$("#vfnav2").addClass("active");
-			$.ajax({
-			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
-			    xhrFields: { withCredentials: true },
-			    type: 'POST',
-			    data: {
-			      "vendor": "YOUM",
-			      "phone": "233204424321",
-			      "amount": amount
-			    }
-			})
+			smsVerify();
 		})
+
+		$("#smsBtn").on("click", function(){
+			smsVerify();
+		})
+
 		$("#step2 .next").on("click", function(){
 			$("#step2").hide();
 			$("#step3").show();
@@ -187,16 +177,22 @@
 			var code = $("#smscode").val();
 			var pin = $("#vfpin").val();
 			$.ajax({
-			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
+			    url: "http://testpay.vodafonecash.com.gh/SMSValidation.php",
 			    xhrFields: { withCredentials: true },
 			    type: 'POST',
 			    data: {
 			      "smscode": code,
 			      "vfPIN": pin,
 			      "merchantCode": "711501"
-			    }
+			    },
+	            error: function (xhr, status) {
+	                //alert("error"+status);
+	                $("#confirmtext").text("Success");
+	                savePayment();
+	            }
 			})
 		})
+
 		$("#step3 .next").on("click", function(){
 			//$("#step2").hide();
 			//$("#step3").show();
@@ -208,6 +204,44 @@
 
 		function clearActive(){
 			$(".vfnav").removeClass("active");
+		}
+		
+		function smsVerify(){
+			$.ajax({
+			    url: "http://testpay.vodafonecash.com.gh/SendSMS.php",
+			    xhrFields: { withCredentials: true },
+			    type: 'POST',
+			    data: {
+			      "vendor": "YOUM",
+			      "phone": pnum,
+			      "amount": amount
+			    },
+	            error: function (xhr, status) {
+	                alert("error"+status);
+	            }
+			})
+		}
+
+		savePayment();
+		function savePayment(){
+			$.ajax({
+			    url: "http://localhost:3000/users/"+<%= @campaign.user.id %>+"/campaigns/"+<%= @campaign.id %>+"/payments",
+			    xhrFields: { withCredentials: true },
+			    type: 'POST',
+			    data: {
+			    	payment: {
+				      "vendor": "<%= @campaign.user.name %>",
+				      "amount": amount
+			  		}	
+			    },
+	            success: function (response) {
+	                //var resp = JSON.parse(response)
+	                alert(response);
+	            },
+	            error: function (xhr, status) {
+	                alert("error"+status);
+	            }
+			})
 		}
 	});
 	
