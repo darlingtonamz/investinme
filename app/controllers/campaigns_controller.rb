@@ -1,7 +1,10 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :gross, :volunteer]
   before_action :set_user, only: [:new, :create, :show]
-
+  helper_method :gross
+  helper_method :percentage
+  helper_method :user_nu
+  helper_method :volunteer
   # GET /campaigns
   # GET /campaigns.json
   def index
@@ -20,8 +23,28 @@ class CampaignsController < ApplicationController
     @categories = Category.all
   end
 
+  def gross
+    @gross = Payment.select("sum(amount) AS amount").where(campaign_id: @campaign.id)
+    @gross.each { |e| return e.amount  }
+  end
+
+  def percentage
+    return (gross.to_f/@campaign.cost.to_f)*100
+  end
+
+  def user_nu
+    @suer_nu = Payment.select("user_id").where(campaign_id: @campaign.id)
+    return @suer_nu.count
+  end
+
+  def volunteer
+    @v = Payment.select("user_id").distinct.where(campaign_id: @campaign.id)
+    return @v.count
+  end
+
   # GET /campaigns/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /campaigns
@@ -32,7 +55,7 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.save
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
+        format.html { render :show, notice: 'Campaign was successfully created.' }
         format.json { render :show, status: :created, location: @campaign }
       else
         format.html { render :new }
@@ -66,16 +89,16 @@ class CampaignsController < ApplicationController
   end
 
   private
-    def set_campaign
-      @campaign = Campaign.find(params[:id])
-    end
+  def set_campaign
+    @campaign = Campaign.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find_by(id: params[:user_id])
-    end
+  def set_user
+    @user = User.find_by(id: params[:user_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def campaign_params
-      params.require(:campaign).permit(:user_id, :name, :goal, :cost, :upload, :display, category_ids: [])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def campaign_params
+    params.require(:campaign).permit(:user_id, :name, :goal, :cost, :upload, :display, category_ids: [])
+  end
 end
