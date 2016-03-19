@@ -222,7 +222,7 @@
 			})
 		}
 
-		savePayment();
+		
 		function savePayment(){
 			$.ajax({
 			    url: "http://localhost:3000/users/"+<%= @campaign.user.id %>+"/campaigns/"+<%= @campaign.id %>+"/payments",

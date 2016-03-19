@@ -32,7 +32,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        redirect_to @payment.campaign(@payment.campaign.user)
+        redirect_to  user_campaign_url, id: @payment.campaign.id, user_id: @payment.campaign.user.id
       else
         format.js { render 'error'}
       end
